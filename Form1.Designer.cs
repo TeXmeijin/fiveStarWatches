@@ -126,17 +126,17 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 23);
+            this.label2.Size = new System.Drawing.Size(96, 23);
             this.label2.TabIndex = 4;
-            this.label2.Text = "TITLE";
+            this.label2.Text = "TASK NAME";
             // 
             // titleText
             // 
             this.titleText.Location = new System.Drawing.Point(6, 45);
-            this.titleText.MaxLength = 10;
+            this.titleText.MaxLength = 20;
             this.titleText.Name = "titleText";
             this.titleText.Size = new System.Drawing.Size(182, 30);
-            this.titleText.TabIndex = 3;
+            this.titleText.TabIndex = 1;
             // 
             // label1
             // 
@@ -173,10 +173,10 @@
             // timer1
             // 
             this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox2.Controls.Add(this.timeText2);
             this.groupBox2.Controls.Add(this.rapTimesText2);
             this.groupBox2.Controls.Add(this.label3);
@@ -220,17 +220,17 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 23);
+            this.label3.Size = new System.Drawing.Size(96, 23);
             this.label3.TabIndex = 4;
-            this.label3.Text = "TITLE";
+            this.label3.Text = "TASK NAME";
             // 
             // titleText2
             // 
             this.titleText2.Location = new System.Drawing.Point(6, 45);
-            this.titleText2.MaxLength = 10;
+            this.titleText2.MaxLength = 20;
             this.titleText2.Name = "titleText2";
             this.titleText2.Size = new System.Drawing.Size(182, 30);
-            this.titleText2.TabIndex = 3;
+            this.titleText2.TabIndex = 2;
             // 
             // label4
             // 
@@ -309,14 +309,14 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 23);
+            this.label5.Size = new System.Drawing.Size(96, 23);
             this.label5.TabIndex = 4;
-            this.label5.Text = "TITLE";
+            this.label5.Text = "TASK NAME";
             // 
             // titleText3
             // 
             this.titleText3.Location = new System.Drawing.Point(6, 45);
-            this.titleText3.MaxLength = 10;
+            this.titleText3.MaxLength = 20;
             this.titleText3.Name = "titleText3";
             this.titleText3.Size = new System.Drawing.Size(182, 30);
             this.titleText3.TabIndex = 3;
@@ -398,17 +398,17 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 19);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 23);
+            this.label7.Size = new System.Drawing.Size(96, 23);
             this.label7.TabIndex = 4;
-            this.label7.Text = "TITLE";
+            this.label7.Text = "TASK NAME";
             // 
             // titleText4
             // 
             this.titleText4.Location = new System.Drawing.Point(6, 45);
-            this.titleText4.MaxLength = 10;
+            this.titleText4.MaxLength = 20;
             this.titleText4.Name = "titleText4";
             this.titleText4.Size = new System.Drawing.Size(182, 30);
-            this.titleText4.TabIndex = 3;
+            this.titleText4.TabIndex = 4;
             // 
             // label8
             // 
@@ -487,17 +487,17 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(6, 19);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 23);
+            this.label9.Size = new System.Drawing.Size(96, 23);
             this.label9.TabIndex = 4;
-            this.label9.Text = "TITLE";
+            this.label9.Text = "TASK NAME";
             // 
             // titleText5
             // 
             this.titleText5.Location = new System.Drawing.Point(6, 45);
-            this.titleText5.MaxLength = 10;
+            this.titleText5.MaxLength = 20;
             this.titleText5.Name = "titleText5";
             this.titleText5.Size = new System.Drawing.Size(182, 30);
-            this.titleText5.TabIndex = 3;
+            this.titleText5.TabIndex = 5;
             // 
             // label10
             // 
@@ -534,22 +534,18 @@
             // timer2
             // 
             this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timer3
             // 
             this.timer3.Interval = 1000;
-            this.timer3.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timer4
             // 
             this.timer4.Interval = 1000;
-            this.timer4.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timer5
             // 
             this.timer5.Interval = 1000;
-            this.timer5.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -563,7 +559,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "fiveTimers";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

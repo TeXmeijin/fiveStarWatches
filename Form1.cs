@@ -17,11 +17,11 @@ namespace fiveStarWatches
         public Form1()
         {
             InitializeComponent();
-            kits[0] = new TimerKits(titleText, timeText, rapTimesText, stopTimerButton, resetButton,timer1);
-            kits[1] = new TimerKits(titleText2, timeText2, rapTimesText2, stopTimerButton2, resetButton2,timer2);
-            kits[2] = new TimerKits(titleText3, timeText3, rapTimesText3, stopTimerButton3, resetButton3,timer3);
-            kits[3] = new TimerKits(titleText4, timeText4, rapTimesText4, stopTimerButton4, resetButton4,timer4);
-            kits[4] = new TimerKits(titleText5, timeText5, rapTimesText5, stopTimerButton5, resetButton5,timer5);
+            kits[0] = new TimerKits(titleText, timeText, rapTimesText, stopTimerButton, resetButton, groupBox1, timer1);
+            kits[1] = new TimerKits(titleText2, timeText2, rapTimesText2, stopTimerButton2, resetButton2, groupBox2, timer2);
+            kits[2] = new TimerKits(titleText3, timeText3, rapTimesText3, stopTimerButton3, resetButton3, groupBox3, timer3);
+            kits[3] = new TimerKits(titleText4, timeText4, rapTimesText4, stopTimerButton4, resetButton4, groupBox4, timer4);
+            kits[4] = new TimerKits(titleText5, timeText5, rapTimesText5, stopTimerButton5, resetButton5,groupBox5, timer5);
         }
 
         private void stopTimerButton_click(object sender, EventArgs e)
@@ -29,37 +29,36 @@ namespace fiveStarWatches
             TimerKits tk = findTimerKitsButton(sender);
             if (tk.State == TimerKits.STOP_STATE)
             {
-                foreach (TimerKits t in kits)
-                {
-                    if (t.State == TimerKits.START_STATE)
-                    {
-                        doStop(t);
-                    }
-                }
-                tk.RapTime.Text += DateTime.Now.ToString("T");
-                tk.Timer.Start();
-                tk.TimerButton.Text = "STOP";
-                tk.State = TimerKits.START_STATE;
+                stopEnableTimer();
+                tk.start();
             }
             else if (tk.State == TimerKits.START_STATE)
             {
-                doStop(tk);
+                tk.stop();
+            }
+        }
+
+        private void stopEnableTimer()
+        {
+            foreach (TimerKits t in kits)
+            {
+                if (t.State == TimerKits.START_STATE)
+                {
+                    t.stop();
+                }
             }
         }
 
         private TimerKits findTimerKitsButton(object sender)
         {
-            TimerKits tk = null;
-
             foreach (TimerKits t in kits)
             {
                 if (t.searchTimerButton((Button)sender))
                 {
-                    tk = t;
+                    return t;
                 }
             }
-
-            return tk;
+            return null;
         }
 
         private TimerKits findTimerKitsTimer(object sender)
@@ -92,39 +91,10 @@ namespace fiveStarWatches
             return tk;
         }
 
-        private void doStop(TimerKits tk)
-        {
-            tk.RapTime.Text += "->" +
-                DateTime.Now.ToString("T") + "\r\n";
-            tk.Timer.Stop();
-            tk.TimerButton.Text = "START";
-            tk.State = TimerKits.STOP_STATE;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            TimerKits tk = findTimerKitsTimer(sender);
-            tk.Time++;
-            setTimerText(tk);
-        }
-
         private void resetButton_Click(object sender, EventArgs e)
         {
             TimerKits tk = findTimerKitsReset(sender);
-            doStop(tk);
-            tk.RapTime.Text = "";
-            tk.Time = 0;
-            setTimerText(tk);
-        }
-
-        private void setTimerText(TimerKits tk)
-        {
-            int hour = tk.Time / 3600;
-            int min = tk.Time % 3600 / 60;
-            int second = tk.Time % 3600 % 60;
-            tk.NowTime.Text = hour.ToString("D2") + ":"
-                + min.ToString("D2") + ":"
-                + second.ToString("D2");
+            tk.reset();
         }
     }
 
@@ -135,6 +105,7 @@ namespace fiveStarWatches
         TextBox rapTime;
         Button timerButton;
         Button resetButton;
+        GroupBox groupBox;
 
         public const int START_STATE = 0;
         public const int STOP_STATE = 1;
@@ -248,30 +219,90 @@ namespace fiveStarWatches
             }
         }
 
+        public GroupBox GroupBox
+        {
+            get
+            {
+                return groupBox;
+            }
+
+            set
+            {
+                groupBox = value;
+            }
+        }
+
         public TimerKits(
             TextBox title,
             TextBox nowTime,
             TextBox rapTime,
             Button timerButton,
             Button resetButton,
+            GroupBox groupBox,
             Timer timer
             )
         {
-            this.Title = title;
-            this.NowTime = nowTime;
-            this.RapTime = rapTime;
-            this.TimerButton = timerButton;
-            this.ResetButton = resetButton;
-            this.Timer = timer;
+            Title = title;
+            NowTime = nowTime;
+            RapTime = rapTime;
+            TimerButton = timerButton;
+            ResetButton = resetButton;
+            this.groupBox = groupBox;
+            Timer = timer;
+            Timer.Tick += this.timerTick;
         }
+
+        public void start()
+        {
+            RapTime.Text += DateTime.Now.ToString("T");
+            Timer.Start();
+            TimerButton.Text = "STOP";
+            State = TimerKits.START_STATE;
+        }
+
+        public void stop()
+        {
+            this.RapTime.Text += "～" +
+                DateTime.Now.ToString("T") + "\r\n";
+            this.Timer.Stop();
+            this.TimerButton.Text = "START";
+            this.State = TimerKits.STOP_STATE;
+        }
+
+        private void timerTick(object sender, EventArgs e)
+        {
+            Time++;
+            setTimerText();
+        }
+
+        public void setTimerText()
+        {
+            int hour = Time / 3600;
+            int min = Time % 3600 / 60;
+            int second = Time % 3600 % 60;
+            NowTime.Text = hour.ToString("D2") + ":"
+                + min.ToString("D2") + ":"
+                + second.ToString("D2");
+        }
+
+        public void reset()
+        {
+            stop();
+            RapTime.Text = "";
+            Time = 0;
+            setTimerText();
+        }
+
         public bool searchTimerButton(Button sender)
         {
             return TimerButton == sender;
         }
+
         public bool searchTimerTimer(Timer sender)
         {
             return Timer == sender;
         }
+
         public bool searchTimerReset(Button sender)
         {
             return resetButton == sender;
